@@ -1,0 +1,20 @@
+\section{INTRODUCTION}
+\label{sec:introduction}
+
+The emergence and popularity of indoor mobile robots has dramatically changed various fields such as logistics, healthcare and domestic services, facilitating the automation of navigation tasks in indoor environments.
+The use of autonomous mobile robots is emerging in diverse fields such as companies, industry, hospitals, institutions, agriculture and households to improve services and daily activities.
+
+These robots rely heavily on advanced navigation systems that are able to manoeuvre safely in complex and changing indoor spaces. An important aspect of such systems is their ability to detect and avoid obstacles, which is critical to ensuring operational efficiency and safety.
+Navigation for indoor mobile robots involves autonomously determining the robot's position in the environment and plotting a collision-free path to its destination.
+It is important for autonomous mobile robots to acquire information from the environment and perceive objects or relative positions around themselves. Perception is an essential aspect of mobile robot research. Performing tasks such as accurately estimating the position of an object may become problematic if the mobile robot is unable to observe its environment correctly and efficiently.
+This process requires complex interactions between sensor inputs, data processing and actuation mechanisms.
+
+Among the range of sensors used for this purpose, laser radar (LiDAR) stands out for its accuracy in measuring distance and detecting obstacles.
+However, despite these advantages, LiDAR has inherent limitations in its detection capabilities. These limitations include, in particular, the cost of 3D LiDAR due to its high price and huge arithmetic requirements, and the limitations of 2D LiDAR in terms of detection dimensions.
+
+The 2D LIDAR system is mounted on top of the robot as standard so that obstacles in the horizontal plane of its laser rays can be detected. Obstacles that do not intersect this plane, however, especially those close to the ground (e.g., chair supports or lamp bases) are therefore difficult to detect. This gap in detection capability highlights the need for 2D golden radar navigation systems to be able to recognise obstacles in more dimensions. In order to address the challenge of detecting such low-lying obstacles, this paper proposes the fusion of a LiDAR and camera system by converting information from a depth camera into a LiDAR message (LaserScan Message). 
+This approach utilises the 3D visual information provided by the camera and the 360-degree measurements provided by the LIDAR, creating a synergistic effect and enhancing environmental awareness. The camera captures detailed images of the environment, including objects below the LIDAR detection plane, while the LIDAR facilitates spatial understanding by accurately mapping obstacles at greater distances and over a wider area.
+The software package "Depthimage\_to\_Laserscan" is included in ROS2, however the algorithm is applied to use only the depth camera as a single sensor for obstacle avoidance information.
+
+Therefore, based on this package converting depth information from the camera into LiDAR information and then integrating it with data from the LiDAR through a series of algorithms, a comprehensive environment model can be generated. This approach greatly enhances the robot's ability to detect and bypass direct and low-lying obstacles, thereby improving the safety and efficiency of indoor navigation.
+The LIDAR-camera fusion approach resolves a key sensor selection conflict, bridges the gap in detection capabilities of 2D LIDAR systems, and improves the autonomy and efficiency of indoor robots, thus advancing the field of autonomous robot navigation.
