@@ -58,6 +58,31 @@ class LaserScanMerger(Node):
         
         return new_scan
     
+    def resample_scan(self, original_scan, target_scan):
+        #这里可以改成lidar_scan而不是target
+        # Calculate the original angles and target angles
+        self.print_scan_data(original_scan, 'Original Scan')
+        original_angles = np.arange(original_scan.angle_min, original_scan.angle_max, original_scan.angle_increment)
+        target_angles = np.arange(target_scan.angle_min, target_scan.angle_max, target_scan.angle_increment)
+        
+        # Interpolate the ranges for the target angles
+        # This handles extrapolation by setting the values outside the original range to NaN
+        interpolated_ranges = np.interp(target_angles, original_angles, original_scan.ranges, left=np.nan, right=np.nan)
+        
+        # Create a new LaserScan message for the resampled scan
+        new_scan = LaserScan()
+        new_scan.header = original_scan.header
+        new_scan.angle_min = target_scan.angle_min
+        new_scan.angle_max = target_scan.angle_max
+        new_scan.angle_increment = target_scan.angle_increment
+        new_scan.time_increment = original_scan.time_increment
+        new_scan.scan_time = original_scan.scan_time
+        new_scan.range_min = original_scan.range_min
+        new_scan.range_max = original_scan.range_max
+        new_scan.ranges = interpolated_ranges.tolist()  # Convert numpy array back to list
+        
+        return new_scan
+    
     # def resample_scan(self, original_scan, target_angle_increment, target_angle_min, target_angle_max):
     #     # Calculate original angles and target angles
     #     original_angles = np.arange(original_scan.angle_min, original_scan.angle_max, original_scan.angle_increment)

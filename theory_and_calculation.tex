@@ -61,6 +61,48 @@ The simple collinearity theorem is used in the calculation of the distance $r$, 
     \caption{Example figure caption.}
 \end{figure}
 
+\begin{algorithm}[H]
+    \caption{Depth image to LaserScan}\label{alg:Dep2Laser}
+    \begin{algorithmic}
+    \Require $depth\_image$
+    \Ensure A converted LaserScan message from one line of depth image
+
+    \State \textbf{Variables:} scan\_time, range\_min, range\_max, scan\_height, output\_frame\_id
+    
+    \State \textbf{Initialize} class variables \textbf{with} provided parameters
+
+    \Function{magnitude\_of\_ray}{ray}
+        \State \Return $\sqrt{ray.x^2 + ray.y^2 + ray.z^2}$
+    \EndFunction
+    
+    \Function{angle\_between\_rays}{ray1, ray2}
+        \State dot\_product $\gets ray1.x \cdot ray2.x + ray1.y \cdot ray2.y + ray1.z \cdot ray2.z$
+        \State magnitude\_1 $\gets$ \Call{magnitude\_of\_ray}{ray1}
+        \State magnitude\_2 $\gets$ \Call{magnitude\_of\_ray}{ray2}
+        \State \Return $\arccos(\frac{dot\_product}{magnitude1 \cdot magnitude2})$
+    \EndFunction
+    
+    \Function{use\_point}{new\_value, old\_value, range\_min, range\_max}
+        \State new\_finite $\gets$ isfinite(new\_value)
+        \State old\_finite $\gets$ isfinite(old\_value)
+        \If{not new\_finite and not old\_finite}
+            \State \Return not isnan(new\_value)
+        \EndIf
+        \State range\_check $\gets$ (range\_min $\leq$ new\_value $\leq$ range\_max)
+        \If{not range\_check}
+            \State \Return false
+        \EndIf
+        \If{not old\_finite}
+            \State \Return true
+        \EndIf
+        \State \Return (new\_value $<$ old\_value)
+    \EndFunction
+    
+
+    
+    \end{algorithmic}
+\end{algorithm}
+
 \subsection{Tradeoff in Maximum Range and Object Depth}
 In the previous section it was mentioned that in order to maximise the maximum distance at which objects could be detected, the centre row of the depth image was used to extract the data converted to LaserScan information. This is due to the fact that although in the previous section it was implemented to extract any row of the depth map to be converted to LaserScan data, the selection of non-centre rows can cause the algorithm to incorrectly judge the floor (or ceiling if taking the top half of the depth image) as an obstacle at longer distances, resulting in the map not being constructed correctly. The simulation in RViz2 is shown below.
 \begin{figure}[H]
@@ -118,6 +160,34 @@ However, this package is not well ported for ROS2, and has problems with not wor
 \end{figure}
 A new dummy LaserScan array is created. Since there is more LaserScan data with a larger range, the RANGE values are compared at the location where the two sets of data overlap, based on the LaserScan resolution. The smaller value, which is the closer obstacle, is entered into the dummy array. In this way, the algorithm automatically determines the greater range of obstruction for the same obstacle, regardless of whether the obstacle is more obstructed at a lower or higher location. The fusion of the two LaserScan information does not affect the information returned by the original LiDAR.
 
+\begin{algorithm}[H]
+    \caption{Merge two LaserScan messages into one}\label{alg:scan_merge}
+    \begin{algorithmic}
+    \Require $lidar\_msg$ , $depth\_msg$ \Comment{LaserScan messages from LiDAR and depth image}
+    
+    \Ensure A merged LaserScan message with the minimum ranges from both inputs
+    \State \textbf{Initialize} merged ranges list: $merged\_ranges \gets [\,]$
+    \For{$index = 0$ \textbf{to} $\text{length of } lidar\_msg.ranges$}
+        \State $range_l \gets lidar\_msg.ranges[index]$
+        \State $range_d \gets depth\_msg.ranges[index]$
+        \State \textbf{Append} $\text{min}(range_l, range_d)$ \textbf{to} $merged$
+    \EndFor
+
+    \State \textbf{Create} a new LaserScan message $merged$ \textbf{with}
+        \State $header \gets$ lidar.header
+        \State $angle\_min \gets$ lidar.angle\_min
+        \State $angle\_max \gets$ lidar.angle\_max
+        \State $angle\_increment \gets$ lidar.angle\_increment
+        \State $time\_increment \gets$ lidar.time\_increment
+        \State $scan\_time \gets$ lidar.scan\_time
+        \State $min \gets$ min(lidar.range\_min, depth.range\_min)
+        \State $max \gets$ max(lidar.range\_max, depth.range\_max)
+        \State ranges $\gets merged$
+
+    \State \textbf{return} merged
+    \end{algorithmic}
+\end{algorithm}
+
 \subsection{Resample of Depth Image Data}
 However, the fusion of the two LaserScan messages mentioned in the previous section is not ideal, as shown in Figure:
 
@@ -137,3 +207,30 @@ First, the angles of the original and target scan data are stored in two arrays 
 
 In other words, the new scan data still uses the data converted from the depth image, but only the corresponding amount of data that overlaps with the LaserScan data is retained. At the same time, the range of the scan is changed to that of the LIDAR LaserScan data (360 degrees), except for the portion outside the field of view of the depth image, where RANGE is set to NaN.
 
+\begin{algorithm}[H]
+    \caption{Resample the converted LaserScan message}\label{alg:resample}
+    \begin{algorithmic}
+        \Require $lidar\_msg$ , $depth\_msg$ \Comment{LaserScan messages from LiDAR and depth image}
+    
+        \Ensure A resampled converted LaserScan message with LiDAR resolution
+
+        \State l\_angles $\gets$ from lidar.min to lidar.max with step of lidar.increment
+        \State d\_angles $\gets$ from depth.min to depth.max with step of depth.increment
+
+        \State i\_ranges $\gets$ Interpolate ranges from original\_scan to match target\_angles
+        \If {$range$ \textbf{is} out of bounds}
+            \State $range \gets$ $NAN$
+        \EndIf
+        \State \textbf{Create} resampled\_scan \textbf{with}
+            \State $header \gets$ depth.header
+            \State $angle\_min \gets$ lidar.angle\_min
+            \State $angle\_max \gets$ lidar.angle\_max
+            \State $angle\_increment \gets$ lidar.angle\_increment
+            \State $time\_increment \gets$ depth.time\_increment
+            \State $scan\_time \gets$ depth.scan\_time
+            \State $range\_min \gets$ depth.range\_min
+            \State $range\_max \gets$ depth.range\_max
+            \State $ranges \gets$ i\_ranges
+        \State \textbf{return} resampled\_scan
+    \end{algorithmic}
+\end{algorithm}
