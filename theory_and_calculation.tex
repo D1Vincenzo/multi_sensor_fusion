@@ -21,12 +21,12 @@ so that it can be fused with LaserScan information is the key to this part.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{figs/robot.png}
-    \caption{LiDAR visuliaztion in Gazebo}
+    \caption{LiDAR visuliaztion in Gazebo, barricades world}
 \end{figure}
 
-A common 2D LiDAR has a resolution of 666, which means that 666 pieces of data will be collected over a 360-degree area. 
-A common depth camera produces an image with a resolution of $1920\times1080$ and a field of view of 666 degrees, 
-which means that in a selected row, about 666 pixels will be acquired over a 666-degree field of view. 
+The 2D LiDAR used in this project has $360$ samples, which means that $360$ pieces of data will be collected over a $360$ degree area. 
+The depth camera used produces an image with a resolution of $640\times480$ and a field of view of about $120$ degrees, 
+which means that in a selected row, about $480$ pixels will be acquired over a $120$ degree field of view. 
 Therefore, there is no need to worry that the LiDAR data converted from the depth camera data will be limited in the amount of information.
 
 \begin{figure}[H]
@@ -40,13 +40,13 @@ Different depth cameras have different ways of colour coding as shown in Figure~
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{figs/robot.png}
-    \caption{Different depth image encoding methods}
+    \caption{Different depth image encoding methods, adapted from~\cite{depthencode}}
     \label{fig:depth_encoding}
 \end{figure}
-In this project, depth-gray is chosen as a way to encode distance information in depth images. 
+In this project, grayscale is chosen as a way to encode distance information in depth images. 
 The distance information is expressed in terms of intensity by mapping the depth values to different pixel intensities.
 The further away the object is, the lighter the shadow will be. 
-Also, since the resolution of the depth image is known ($1920\times1080$ used in this project), the coordinates of any point in the image can be easily represented.
+Also, since the resolution of the depth image is known ($640\times480$ used in this project), the coordinates of any point in the image can be easily represented.
 Thus, from the depth map it is known: 
 1. the coordinates $p(x, y)$ of the desired point on the image. 
 2. the distance from the camera origin $O_c$ to the plane where the object is located, $Z_c$, which is the depth value mentioned above. 
@@ -146,6 +146,7 @@ This is due to the fact that although it was implemented to extract any row of t
 the selection of non-centre rows can cause the algorithm to incorrectly consider the floor (or ceiling if taking the top half of the depth image) 
 as an obstacle for long maximum range. This will result in the map not being constructed correctly. 
 The simulation in RViz2 for this particular situation is shown in Figure~\ref{fig:floor_obstacle}.
+The red dots are the obstacles detected by the LiDAR, and the white dots are the obstacles detected by the converted depth image.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{figs/robot.png}
@@ -223,13 +224,15 @@ where $l'$ is the new max range after tradeoff. Define it into the programme, it
     \centering
     \includegraphics[width=0.8\linewidth]{figs/robot.png}
     \caption{The same situation after fixed}
+    \label{fig:fixed}
 \end{figure}
 
 Furthermore, from the representation of the diagonal $\alpha$ above, 
 it can be seen that $\alpha$ can be represented by an inverse $\sin$ wave which is a positively proportional function. 
 It confirms that the more the line of sight is offset downward from the centre horizon, 
-the greater the maximum detection distance sacrificed. 
-Although adjusting the height of the depth camera from the hardware is not recommended, 
+the greater the maximum detection distance sacrificed.
+However, as shown in Figure~\ref{fixed}, although the problem is solved, the detecting range becomes much shorter.
+Therefore, although adjusting the height of the depth camera from the hardware is not recommended, 
 if the depth camera is placed too high, the maximum detection distance sacrificed will be large, 
 thus significantly reducing the effectiveness of this fusion algorithm. 
 Therefore it is necessary to reduce the height of the depth camera even though the algorithm can be adjusted to detect objects in lower lying areas of the field of view.
@@ -241,13 +244,13 @@ in RViz2 as LaserScan data, as shown in Figure~\ref{fig:centre_row} and Figure~\
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{figs/robot.png}
-    \caption{Converted LaserScan data from depth image using the center row}
+    \caption{Converted LaserScan data (white dot) from depth image using the center row}
     \label{fig:centre_row}
 \end{figure}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{figs/robot.png}
-    \caption{Converted LaserScan data from depth image using the lower row}
+    \caption{Converted LaserScan data (white dots) from depth image using the lower row}
     \label{fig:lower_row}
 \end{figure}
 The author of slam\_toolbox points out that this package does not support multi-laser configs, 
@@ -317,8 +320,8 @@ However, the fusion of the two LaserScan messages in the previous section is not
     \label{fig:fusioned}
 \end{figure}
 This is because the resolution of the LaserScan information converted from LiDAR and depth images is not the same. 
-As there are $1024$ pixels per line in a $1920\times1080$ depth image, 
-all $1024$ pixels are used to convert to LaserScan information. 
+As there are $480$ pixels per line in a $640\times480$ depth image, 
+all $480$ pixels are used to convert to LaserScan information. 
 However, there are only about 666 LaserScan data in the overlapping portion of the LiDAR LaserScan information, 
 which makes the fusion between the two contradictory.
 \begin{figure}[H]
