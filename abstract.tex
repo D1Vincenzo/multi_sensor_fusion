@@ -1,11 +1,13 @@
 \section*{ABSTRACT}
 \vspace{0.5cm}
 % EXAMPLE
-Mobile robots have gained popularity in many application areas over the last few decades. In order to sense the environment in which the robot is moving autonomously, various sensors such as depth cameras are required. Due to the huge amount of data, the computational cost of processing 3D information in depth images is very high. However, for many mobile robots, navigation in a simplified two-dimensional world is sufficient. For this reason, depth images of the environment can be converted into 2D information in the form of laser scan lines and then processed using localisation and mapping algorithms.
-In this paper, an existing algorithm for converting depth images into laser scans is improved and tested on a real robot in a real-world scenario. Compared to the original algorithm, the improved algorithm takes into account 3D information such as the robot's height and obstacles when creating the laser scan line. This allows the mobile robot to navigate in a simplified 2D world without colliding with obstacles in the real 3D world. Due to the high computational cost of processing 3D information, the algorithm was optimised so that it could be executed on a low-cost single board computer.
-
+Autonomous mobile robots are vital in areas such as logistics and healthcare, where they rely on complex navigation systems to effectively manoeuvre in dynamic indoor environments. Conventional 2D LiDAR systems, while favourable for obstacle detection in a single plane. However, they perform poorly in recognising low-lying and complex obstacles, limiting their operational efficiency and safety.
+This project proposes a novel sensor fusion method that combines the 2D breadth of LiDAR with the stereo vision data from a depth camera. By converting depth camera outputs into LiDAR messages, the robot-accessible environmental data is enriched, resulting in significantly enhanced obstacle detection in multiple dimensions. This fusion technique significantly closes the gap in 2D LiDAR obstacle detection capabilities.
+This sensor fusion algorithm's is implemented based on enhancements to existing algorithms in the ROS2 framework, simulated and evaluated in Gazebo and RViz2. The enhanced algorithm was combined with the fusion algorithm of this project to consider and improve the problems that can arise when multiple fusions are performed.
+The results show a significant improvement in the robot's ability to detect and bypass direct and low-lying obstacles.
 \vspace{0.5cm}
-\textbf{Keywords:} Mobile Robot, Depth Camera, Laser Scan, 2D Mapping, Localisation, Mapping, Navigation, Single Board Computer, Optimisation
+
+\textbf{Keywords:} Mobile Robot, Depth Camera, Laser Scan, 2D Mapping, Localisation, Mapping, Navigation
 
 \vspace{0.5cm}
 \textbf{NOMENCLATURE}
