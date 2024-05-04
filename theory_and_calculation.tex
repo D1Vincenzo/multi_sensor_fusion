@@ -21,7 +21,7 @@ so that it can be fused with LaserScan information is the key to this part.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{figs/robot.png}
-    \caption{LiDAR Visuliaztion in Gazebo}
+    \caption{LiDAR visuliaztion in Gazebo}
 \end{figure}
 
 A common 2D LiDAR has a resolution of 666, which means that 666 pieces of data will be collected over a 360-degree area. 
@@ -32,15 +32,15 @@ Therefore, there is no need to worry that the LiDAR data converted from the dept
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{figs/robot.png}
-    \caption{Comparison of Depth and Normal Image}
+    \caption{Comparison of depth and normal image}
 \end{figure}
 In a depth image, the colour of each pixel point represents the distance of this point 
 in real-world coordinates from the camera's optical centre. 
-Different depth cameras have different ways of colour coding as shown in the figure~\ref{fig:depth_encoding} below.
+Different depth cameras have different ways of colour coding as shown in Figure~\ref{fig:depth_encoding} below.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{figs/robot.png}
-    \caption{Different Depth Image Encoding Methods}
+    \caption{Different depth image encoding methods}
     \label{fig:depth_encoding}
 \end{figure}
 In this project, depth-gray is chosen as a way to encode distance information in depth images. 
@@ -50,16 +50,16 @@ Also, since the resolution of the depth image is known ($1920\times1080$ used in
 Thus, from the depth map it is known: 
 1. the coordinates $p(x, y)$ of the desired point on the image. 
 2. the distance from the camera origin $O_c$ to the plane where the object is located, $Z_c$, which is the depth value mentioned above. 
-3. the focal length, $f$. These are indicated in following figure~\ref{fig:depth_coordinate}.
+3. the focal length, $f$. These are indicated in following Figure~\ref{fig:depth_coordinate}.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{figs/robot.png}
-    \caption{Depth Image Coordinate System}
+    \caption{Depth image coordinate system}
     \label{fig:depth_coordinate}
 \end{figure}
 In order to fuse the depth image data with the LaserScan data, 
 the one in the depth image needs to be extracted and processed into the form of laser data slots, i.e. polar coordinates. 
-As shown in figure~\ref{fig:depth_coordinate}, the camera coordinates $(X_c, Y_c, Z_c)$ of point $P$ and its world coordinates $(X_w, Y_w, Z_w)$ 
+As shown in Figure~\ref{fig:depth_coordinate}, the camera coordinates $(X_c, Y_c, Z_c)$ of point $P$ and its world coordinates $(X_w, Y_w, Z_w)$ 
 can be found according to the principle of triangle similarity. 
 Then the projection angle of the coordinate point, i.e., the angle $AO_cB$ between the lines $AO_c$ and $BO_c$, can be calculated as 
 \begin{equation}
@@ -83,11 +83,12 @@ which can be calculated by Equation~\ref{eq:distance}:
 
 The above calculation of index values can be quickly understood by a simplified example. 
 Assuming that there are $N=4$ laser data slots in a max range $60$ degree and min range $-60$ degree, 
-the Index of each data slot is shown in following Figure~\ref{fig:laser_index}.
+the index of each data slot is shown in following Figure~\ref{fig:laser_index}.
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{figs/robot.png}
-    \caption{Simplified Example of Laser Data Slot Index}
+    \caption{Simplified example of laser data slot index}
     \label{fig:laser_index}
 \end{figure}
 In order to calculate the index of the laser slot at the 30 degree position, there is: 
@@ -148,7 +149,7 @@ The simulation in RViz2 for this particular situation is shown in Figure~\ref{fi
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{figs/robot.png}
-    \caption{Situation of LiDAR considering the Floor as an Obstacle.}
+    \caption{Situation of LiDAR considering the floor as an obstacle.}
     \label{fig:floor_obstacle}
 \end{figure}
 As the aim of this project is to address the disadvantage of LiDAR on low lying objects, 
@@ -165,13 +166,13 @@ Algorithm-based approaches are still needed to obtain a generic solution to this
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{figs/robot.png}
-    \caption{Typical Indoor Robot with Camera on Top}
+    \caption{Typical indoor robot with camera on top}
 \end{figure}
 
-The figure~\ref{fig:tradeoff} shows how to calculate the maximum distance $l$ from a point when the chosen horizontal line is offset from the original centre line by $h$, 
+The Figure~\ref{fig:tradeoff} shows how to calculate the maximum distance $l$ from a point when the chosen horizontal line is offset from the original centre line by $h$, 
 which will be uniformly called to as the "line of sight". 
 When the line of sight meets the ground, the length of the line of sight is the maximum distance, 
-in which case choosing a larger distance would cause the map in the above figure to fail to be constructed. 
+in which case choosing a larger distance would cause the map to fail to be constructed. 
 This method therefore ensures that the scan is maximised in a given situation while avoiding the wrong identification. 
 Assuming that there is an obstacle close to the ground, 
 its horizontal height difference from the depth camera's optical center can be seen as equivalent to the distance $h$ from the depth camera's optical center to the ground.
@@ -182,7 +183,7 @@ i.e., it will lead to an erroneous situation of judging the ground as an obstacl
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{figs/robot.png}
-    \caption{The Tradeoff in Maximum Range and Object Depth}
+    \caption{The tradeoff in maximum range and object depth}
     \label{fig:tradeoff}
 \end{figure}
 
@@ -195,7 +196,7 @@ scanned by the depth camera after the line of sight has been rotated $\alpha$.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{figs/robot.png}
-    \caption{The Tradeoff in Maximum Range and Object Depth}
+    \caption{The tradeoff in maximum range and object depth}
     \label{fig:tradeoff2}
 \end{figure}
 
@@ -221,7 +222,7 @@ where $l'$ is the new max range after tradeoff. Define it into the programme, it
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{figs/robot.png}
-    \caption{The Same Situation after Fixed}
+    \caption{The same situation after fixed}
 \end{figure}
 
 Furthermore, from the representation of the diagonal $\alpha$ above, 
@@ -240,13 +241,13 @@ in RViz2 as LaserScan data, as shown in Figure~\ref{fig:centre_row} and Figure~\
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{figs/robot.png}
-    \caption{Converted LaserScan Data from Depth Image using the Center Row}
+    \caption{Converted LaserScan data from depth image using the center row}
     \label{fig:centre_row}
 \end{figure}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{figs/robot.png}
-    \caption{Converted LaserScan Data from Depth Image using the Lower Row}
+    \caption{Converted LaserScan data from depth image using the lower row}
     \label{fig:lower_row}
 \end{figure}
 The author of slam\_toolbox points out that this package does not support multi-laser configs, 
@@ -261,13 +262,13 @@ These two sets of LiDAR data are not at the same height, but this is not importa
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{figs/robot.png}
-    \caption{Scan Range of LiDAR}
+    \caption{Scan range of LiDAR}
     \label{fig:lidar_scan}
 \end{figure}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{figs/robot.png}
-    \caption{Scan Range of Depth Image}
+    \caption{Scan range of depth image}
     \label{fig:depth_scan}
 \end{figure}
 A new dummy LaserScan array is created. And since there is more LaserScan data with a larger range, 
@@ -308,11 +309,12 @@ regardless of whether the obstacle is more obstructed at a lower or higher locat
 The fusion of the two LaserScan information does not affect the information returned by the original LiDAR.
 
 \subsection{Resample of Depth Image Data}
-However, the fusion of the two LaserScan messages in the previous section is not ideal, as shown in Figure:
+However, the fusion of the two LaserScan messages in the previous section is not ideal, as shown in Figure~\ref{fig:fusioned}.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{figs/robot.png}
-    \caption{Fusioned LaserScan Data before Resample}
+    \caption{Fusioned LaserScan data before resample}
+    \label{fig:fusioned}
 \end{figure}
 This is because the resolution of the LaserScan information converted from LiDAR and depth images is not the same. 
 As there are $1024$ pixels per line in a $1920\times1080$ depth image, 
@@ -322,7 +324,7 @@ which makes the fusion between the two contradictory.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{figs/robot.png}
-    \caption{The Contradictory in Resolution}
+    \caption{The contradictory in resolution}
 \end{figure}
 In order to solve this problem without degrading the accuracy of the depth image conversion, 
 the resolution of the two LaserScan's need to be harmonised,

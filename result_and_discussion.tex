@@ -4,11 +4,12 @@ With the methodology used above, this project is tested in Gazebo Classic and RV
 The first is a reproduction of the problem to be solved in this project.
 A differential robotic robot using LiDAR to build a map and avoid obstacles is formulated 
 with a destination point in an indoor environment. However it accidentally collided on the way. 
-The figure below shows that after the collision, the constructed map becomes chaotic.
+Figure~\ref{fig:collision} below shows that after the collision, the constructed map becomes chaotic.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{figs/robot.png}
     \caption{Chaotic map after collision}
+    \label{fig:collision}
 \end{figure}
 This is because the robot considers that the robot is still moving during the collision,
 so the map is updated with the ``new position'' of the robot. An easy-to-understand example is the skidding that occurs in a moving car on ice. 

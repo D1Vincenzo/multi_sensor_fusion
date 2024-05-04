@@ -10,13 +10,22 @@
 \usepackage{xcolor}
 \usepackage{subfiles}
 \usepackage{multicol}
-\usepackage{titlesec} % Add this line to your package imports
+\usepackage{titlesec}
 \usepackage{float}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 \usepackage{enumitem}
 \usepackage{biblatex}
 \addbibresource{bibliography.bib}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black, % Customize link color here
+    filecolor=black,
+    urlcolor=black,
+    citecolor=black,
+}
+
 % Adjust the space before and after sections
 \titlespacing\section{0pt}{10pt}{10pt}
 
@@ -48,11 +57,8 @@
 
 \pagestyle{plain}
 
-% \title{\textbf{Title of the Paper}}
-% \author{\textbf{Student Name and Number} \\
-% \fontsize{12pt}{14pt}\selectfont Mechanical Engineering Department, University College London}
-\title{\fontsize{16pt}{19pt}\selectfont\textbf{Title of the Paper}}
-\author{\fontsize{14pt}{17pt}\selectfont\textbf{Student Name and Number} \\
+\title{\fontsize{16pt}{19pt}\selectfont\textbf{Enhanced Robotic Navigation Using Multi-Sensor Fusion}}
+\author{\fontsize{14pt}{17pt}\selectfont\textbf{Xinyang Huang 21022763} \\
 \fontsize{12pt}{14pt}\selectfont Mechanical Engineering Department, University College London}
 \date{} % No date to mimic the template
 
@@ -73,54 +79,11 @@
 
 \subfile{result_and_discussion.tex}
 
-% \section{Mathematical Expressions and Symbols}
-% \label{sec:mathematical_expressions}
-% Mathematical expressions and symbols should be inserted using the equation tool. For example, the Fourier series analysis can be represented as:
-% \begin{equation}
-% f(x)=a_0+\sum_{n=1}^{\infty}a_n\cos\left(\frac{n\pi x}{L}\right)+b_n\sin\left(\frac{n\pi x}{L}\right)
-% \end{equation}
+\subfile{conclusion.tex}
 
-% \section{Results and Discussion}
-% \label{sec:results_discussion}
-% This section may each be divided by subheadings or may be combined. 
+\subfile{declarations.tex}
 
-% \subsection{Preparation of Figures and Tables}
-% \label{subsec:figures_tables}
-% Embed all figures and tables at appropriate places within the text. For example, Figure~\ref{fig:example}.
-
-% \begin{figure}[H]
-% \centering
-% \includegraphics[width=0.8\linewidth]{figs/robot.png}
-% \caption{Example figure caption.}
-% \label{fig:example}
-% \end{figure}
-
-% \begin{table}[ht]
-% \centering
-% \caption{Example table caption.}
-% \label{tab:example}
-% \begin{tabular}{lcr}
-% \toprule
-% Column 1 & Column 2 & Column 3 \\
-% \midrule
-% Row 1 & Data & Data \\
-% Row 2 & Data & Data \\
-% \bottomrule
-% \end{tabular}
-% \end{table}
-
-% \section{Conclusions}
-% \label{sec:conclusions}
-% Each report should contain a conclusion section within 250-450 words which may contain the major outcome of the work.
-
-% % Acknowledgements section
-% \section*{Acknowledgements}
-% All acknowledgments (if any) should be included here.
 \printbibliography
 \end{multicols}
-% % References
-% \begin{thebibliography}{99}
-% \bibitem{b1} Author, "Title of the paper," \textit{Journal Name}, vol. xx, no. xx, pp. xxx-xxx, month, year.
-% \bibitem{b2} Author, "Title of the paper," \textit{Journal Name}, vol. xx, no. xx, pp. xxx-xxx, month, year.
-% \end{thebibliography}
+
 \end{document}
