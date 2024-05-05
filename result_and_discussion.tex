@@ -7,15 +7,16 @@ with a destination point in an indoor environment. However it accidentally colli
 Figure~\ref{fig:collision} below shows that after the collision, the constructed map becomes chaotic.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\linewidth]{figs/robot.png}
-    \caption{Chaotic map after collision}
+    \includegraphics[width=0.4\linewidth]{figs/chaotic_map.png}
+    \caption{Chaotic map after collision (top right corner)}
     \label{fig:collision}
 \end{figure}
 This is because the robot considers that the robot is still moving during the collision,
 so the map is updated with the ``new position'' of the robot. An easy-to-understand example is the skidding that occurs in a moving car on ice. 
 When the car skids, the wheels are still spinning normally, but there is no actual displacement of the car.
 
-Two obstacles that are useful to this problem were added to the simulated world to be tested separately:
+Two obstacles that are useful to this problem were added to the simulated world to be tested separately.
+3D pointcloud mode is opened for better visualisation of the obstacles.
 
 1. \textbf{Bookshelf}: Due to the thin partitions on each level of the bookshelf, 
 the LiDAR scanning surface that is not at the same level as one of the partitions will not detect the partition, 
@@ -26,7 +27,7 @@ If the robot is given a forward navigation command in this case, it will move st
 As shown in Figure~\ref{fig:bookshelf}. It will not be able to navigate correctly and at the same time it will destroy the original map.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\linewidth]{figs/robot.png}
+    \includegraphics[width=0.8\linewidth]{figs/cannot_shelf.png}
     \caption{LiDAR cannot detect the shelf correctly}
     \label{fig:bookshelf}
 \end{figure}
@@ -34,8 +35,8 @@ After using the merged LaserScan data returned by the fusion algorithm,
 it is clear in RViz2 that the baseboard of the bookshelf is successfully recognised as an obstacle and mapped.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\linewidth]{figs/robot.png}
-    \caption{The shelf is detected correctly after the fusion}
+    \includegraphics[width=0.8\linewidth]{figs/can_shelf.png}
+    \caption{The shelf can be detected correctly after fusion}
 \end{figure}
 2. \textbf{Barricades}: Another very intuitive test is this cylinder barricade 
 with a polygonal bottom cross-section and a rounded upper cross-section.
@@ -46,7 +47,7 @@ Both the LiDAR LaserScan data and the merged LaserScan data returned by the fusi
 distinguished by different colours, are turned on in RViz2:
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\linewidth]{figs/robot.png}
+    \includegraphics[width=0.8\linewidth]{figs/barricade.png}
     \caption{Different LaserScan data for same barricade}
 \end{figure}
 It can be seen that what is scanned before the fusion 

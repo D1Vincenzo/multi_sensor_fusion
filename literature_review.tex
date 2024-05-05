@@ -3,7 +3,7 @@
 \subsection{LiDAR}
 \label{subsec:lidar}
 The sensing system for automated vehicle navigation is made up of active and passive sensors, such as cameras, radar, and lidar~\cite{lidar}.
-One such device LDAR, is an advanced active sensor system that uses lasers to illuminate 
+One such device LiDAR, is an advanced active sensor system that uses lasers to illuminate 
 and detect its surroundings. These devices measure distances to various objects precisely 
 by emitting lasers and receiving them back from reflective surfaces. 
 In a typical LiDAR system, one or more laser beams are scanned across its field of view. 
@@ -29,13 +29,13 @@ The LiDAR system used in this project is a typical kind of ToF LiDAR, whose work
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\linewidth]{figs/lidar_example.png}
-    \caption{ToF LiDAR example, adapted from~\cite{lidarexample}}.
+    \includegraphics[width=1\linewidth]{figs/tof.png}
+    \caption{ToF LiDAR example, adapted from~\cite{lidarexample}}
     \label{fig:lidar_example}
 \end{figure}
 
 \subsection{Depth Camera}
-Common depth cameras, such as the Intel RealSense Camera, use three lenses to assess depth: 
+Common depth cameras, such as the Intel RealSense Camera, use these lenses to assess depth: 
 a camera, an infrared (IR) camera, and an IR projector. 
 They detect infrared light reflected from the object or body in front of them. 
 The resulting visual data is combined with software to generate a depth estimate, 
@@ -58,7 +58,7 @@ This is very similar to the principle of section~\ref{subsec:lidar} outlined abo
 
 \subsection{SLAM}
 \label{subsec:slam}
-The availability of accurate maps enables system designs to operate in complex environments using only on-board sensors, 
+The availability of accurate maps enables system designs to operate in complex environments using only onboard sensors, 
 rather than external reference systems (e.g., GPS). 
 Over the last few decades, the robotics community has focused heavily on developing maps of indoor environments, often without the use of GPS~\cite{slam}. 
 The simultaneous localization and map building (SLAM) problem is commonly used to describe the process of learning maps under attitude uncertainty~\cite{slamoverview}. 
@@ -79,7 +79,7 @@ as they are very sensitive to collisions. This is mentioned in following section
 \subsection{ROS2 Humble}
 ROS 2 Humble Hawksbill is a version of the Robotics Operating System (ROS 2).
 It is the successor to the original ROS (Robotics Operating System) and is intended to improve on its predecessor's functionality,
-focusing on new robotics use cases, more robust communications, and support for real-time systems~\cite{ros2}.
+focusing on new robotics use cases, more robust communications, and support real-time systems~\cite{ros2}.
 ROS2 Humble is used throughout this project for the following reasons: ROS 2 Humble is an LTS release, 
 which means it will be supported and updated for a longer period of time. 
 And when this project started, this version was the latest LTS version. 
@@ -101,26 +101,26 @@ Through simulation, it is possible to quickly iterate on algorithm design, test 
 This rapid feedback loop significantly accelerates the development process.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\linewidth]{figs/robot.png}
+    \includegraphics[width=0.76\linewidth]{figs/gazebo_house.png}
     \caption{Simulated indoor environment in Gazebo}
 \end{figure}
 \subsection{RViz2}
 RViz is a powerful 3D visualisation tool for representing sensor data, robot state, and behaviour.
 RViz2's displays can be customised to meet specific requirements, 
 allowing it to adapt to a wide range of robotic applications~\cite{rviz2}. 
-It is also fully integrated with ROS2 and compatible with Gazebo. 
+It is also fully integrated with ROS2 and it is compatible with Gazebo. 
 
 RViz2 is used throughout this project to visualise data including robot models, 
 trajectories, and sensor data streams (e.g. laser scans and cameras). 
 It provides visual insights into what the robot is ``seeing'' and ``thinking'', 
-which is essential for tuning algorithms and ensuring they perform as expected.
+which is essential for tuning algorithms and ensuring that they perform as expected.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\linewidth]{figs/robot.png}
+    \includegraphics[width=0.8\linewidth]{figs/robotandlaser.png}
     \caption{The robot model and laserScan data visualised in RViz2}
 \end{figure}
 \subsection{Depthimage\_to\_Laserscan}
-Depthimage\_to\_Laserscan is a ROS package that provides a basic solution for converting depth images from depth cameras to 2D laser scan data~\cite{rosdepthimage}. 
+Depthimage\_to\_Laserscan is a ROS package that provides a simple solution for converting depth images from depth cameras to 2D laser scan data~\cite{rosdepthimage}. 
 
 The principal of algorithm for converting depth image data to LaserScan data in the following section is adapted from this package. 
 The details are explained in more detail below.
@@ -143,7 +143,7 @@ The robot is only given a target position and then can plan an obstacle avoidanc
 As mentioned in section~\ref{subsec:slam}, SLAM is a central part of robot navigation. SLAM\_toolbox is a package for ROS. 
 It provides tools to perform SLAM using various sensor data sources, both on real robots and in the simulated world~\cite{slamtoolbox}.
 
-This package is used throughout this project in conjunction with the other tools mentioned above to implement robot navigation and map building.
+This package is used throughout the project in conjunction with the other tools mentioned above to implement robot navigation and map building.
 
 \subsection{Proposed Solutions}
 In the early stages of the project, two unique proposed solutions were also proposed and they are:
@@ -154,7 +154,7 @@ Its superior efficiency enables robots to make fast, informed decisions about ob
 
 However, whilst YOLOv8 provides powerful target detection capabilities, 
 it relies heavily on visual data from the camera. 
-The aim of this project was to explore sensor fusion, in particular the integration of camera and LiDAR data, 
+The aim of this project was to explore sensor fusion. In particular, the integration of camera and LiDAR data, 
 to take advantage of the complementary strengths of the two sensing modalities. 
 YOLOv8 focuses only on camera input, which is not in line with the sensor fusion goals of this project.
 \subsubsection{ORB-SLAM3}
