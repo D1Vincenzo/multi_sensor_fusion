@@ -1,7 +1,7 @@
 \section{RESULT AND DISCUSSION}
 \label{sec:result_and_discussion}
-With the methodology used above, this project is tested in Gazebo Classic and RViz2 based on ROS2 Humble. 
-The first is a reproduction of the problem to be solved in this project.
+With the methodology used above, this study is tested in Gazebo Classic and RViz2 based on ROS2 Humble. 
+The first is a reproduction of the problem to be solved in this study.
 A differential robotic robot using LiDAR to build a map and avoid obstacles is formulated 
 with a destination point in an indoor environment. However it accidentally collided on the way. 
 Figure~\ref{fig:collision} below shows that after the collision, the constructed map becomes chaotic.
@@ -16,7 +16,8 @@ so the map is updated with the ``new position'' of the robot. An easy-to-underst
 When the car skids, the wheels are still spinning normally, but there is no actual displacement of the car.
 
 Two obstacles that are useful to this problem were added to the simulated world to be tested separately.
-3D pointcloud mode is opened for better visualisation of the obstacles.
+3D pointcloud mode is opened for better visualisation of the obstacles. 
+The white line on the floor is from the pointcloud, not the wrong LaserScan data as in Section~\ref{subsec:tradeoff}
 
 1. \textbf{Bookshelf}: Due to the thin partitions on each level of the bookshelf, 
 the LiDAR scanning surface that is not at the same level as one of the partitions will not detect the partition, 
@@ -36,7 +37,7 @@ it is clear in RViz2 that the baseboard of the bookshelf is successfully recogni
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{figs/can_shelf.png}
-    \caption{The shelf can be detected correctly after fusion}
+    \caption{The shelf can be detected correctly after fusion (green dots)}
 \end{figure}
 2. \textbf{Barricades}: Another very intuitive test is this cylinder barricade 
 with a polygonal bottom cross-section and a rounded upper cross-section.
@@ -51,9 +52,9 @@ distinguished by different colours, are turned on in RViz2:
     \caption{Different LaserScan data for same barricade}
 \end{figure}
 It can be seen that what is scanned before the fusion 
-is the higher part of the top half with a circular cross-section.
+is the higher part of the top half with a circular cross-section (red dots).
 And after the fusion, the scanning of this area is replaced with the lower part of the bottom cross-section 
-with a polygonal shape. This also represents the fulfilment of the objectives of this project.
+with a polygonal shape (green dots).
 
 
 

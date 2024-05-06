@@ -13,7 +13,7 @@ where the information that is important for sensor fusion is:
 By default, the centre row of the depth image is used to extract the data that is converted to laser scanning information. 
 This maximises the maximum range at which objects can be detected. 
 This will be mentioned in the next section: "Trade off in maximum range and object depth". 
-Since the goal of this project is to address the disadvantage of LiDAR in detecting low-lying objects, 
+Since the goal of this study is to address the disadvantage of LiDAR in detecting low-lying objects, 
 the lower part of the depth image is the main focus of the process. 
 Therefore, how to convert the coordinates and distance information of any row in the depth image to world coordinates 
 so that it can be fused with LaserScan information is the key to this part.
@@ -24,7 +24,7 @@ so that it can be fused with LaserScan information is the key to this part.
     \caption{LiDAR visuliaztion in Gazebo, barricades world}
 \end{figure}
 
-The 2D LiDAR used in this project has $360$ samples, which means that $360$ pieces of data will be collected over a $360$ degree area. 
+The 2D LiDAR used in this study has $360$ samples, which means that $360$ pieces of data will be collected over a $360$ degree area. 
 The depth camera used produces an image with a resolution of $640\times480$ and a field of view of about $120$ degrees, 
 which means that in a selected row, about $480$ pixels will be acquired over a $120$ degree field of view. 
 Therefore, there is no need to worry that the LiDAR data converted from the depth camera data will be limited in the amount of information.
@@ -43,10 +43,10 @@ Different depth cameras have different ways of colour coding as shown in Figure~
     \caption{Different depth image encoding methods, adapted from~\cite{depthencode}}
     \label{fig:depth_encoding}
 \end{figure}
-In this project, grayscale is chosen as a way to encode distance information in depth images. 
+In this study, grayscale is chosen as a way to encode distance information in depth images. 
 The distance information is expressed in terms of intensity by mapping the depth values to different pixel intensities.
 The further away the object is, the lighter the shadow will be. 
-Also, since the resolution of the depth image is known ($640\times480$ used in this project), the coordinates of any point in the image can be easily represented.
+Also, since the resolution of the depth image is known ($640\times480$ used in this study), the coordinates of any point in the image can be easily represented.
 Thus, from the depth map it is known: 
 1. the coordinates $p(x, y)$ of the desired point on the image. 
 2. the distance from the camera origin $O_c$ to the plane where the object is located, $Z_c$, which is the depth value mentioned above. 
@@ -154,7 +154,7 @@ An unexpected white line is shown, which is not an obstacle but the floor itself
     \caption{Situation of LiDAR considering the floor as an obstacle}
     \label{fig:floor_obstacle}
 \end{figure}
-As the aim of this project is to address the disadvantage of LiDAR on low lying objects, 
+As the aim of this study is to address the disadvantage of LiDAR on low lying objects, 
 the lower the obstacle that can be detected is the better, 
 therefore selecting the centre horizontal line of the depth image 
 and convert it to LaserScan message is not going to maximise the demand. 
@@ -263,7 +263,7 @@ Although the author suggests a solution: use the laser\_assembler package~\cite{
 However, this package is not well ported for ROS2
 and has problems with not working properly or performing a lot of unnecessary calculations in tests. 
 
-Therefore, a simple and efficient fusion method is designed for this project. 
+Therefore, a simple and efficient fusion method is designed for this study. 
 There are two sets of LiDAR data, one with a range of 360 degree and one with a range of $[\alpha,\beta]$ converted from depth images. 
 These two sets of LiDAR data are not at the same height, but this is not important in the 2D map, as shown in Figure~\ref{fig:lidar_scan} and Figure~\ref{fig:depth_scan}.
 \begin{figure}[H]
@@ -320,7 +320,7 @@ However, the outcome of fusion of the two LaserScan messages in the previous sec
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.75\linewidth]{figs/before_resample.png}
-    \caption{Fusioned LaserScan data before resample}
+    \caption{Fusioned LaserScan data (green dots)}
     \label{fig:fusioned}
 \end{figure}
 The green dots express the merged LaserScan data. However, it is chaotic for the depth image part after the fusion.
