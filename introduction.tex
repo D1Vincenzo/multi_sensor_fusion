@@ -45,13 +45,16 @@ whereas the LiDAR aids spatial understanding by accurately mapping obstacles at 
 ROS2 includes the software package ``Depthimage\_to\_Laserscan''~\cite{rosdepthimage}. 
 However, the algorithm is configured to use the depth camera as a single sensor for obstacle avoidance information.
 
-As a result, adapting the principal from this package 
-to convert depth information from the camera into LiDAR information 
-and then integrating it with LiDAR data via a series of algorithms, 
-a comprehensive environment model can be created. 
-This method significantly improves the robot's ability to detect and avoid direct 
+As a result, the aims for this study are: 
+
+\textbf{1. Convert depth data from the camera into LaserScan data efficiently. }
+
+\textbf{2. Integrating the converted LaserScan message with LiDAR data via a series of algorithms. }
+
+\textbf{3. Test the algorithm and fuction in Gazebo \& RViz.}
+
+This comprehensive environment model created can significantly improve the robot's ability to detect and avoid direct 
 and low-lying obstacles, increasing the safety and efficiency of indoor navigation.
-The LiDAR-camera fusion approach resolves a critical sensor selection conflict, 
-closes the detection capability gap in 2D LiDAR systems. 
-Also, it improves the autonomy and efficiency of indoor robots, 
-advancing the field of autonomous robot navigation.
+The LiDAR-camera fusion approach can resolve a critical sensor selection conflict.
+It is able to close the detection capability gap in 2D LiDAR systems and also improve the autonomy and efficiency of indoor robots, 
+advance the field of autonomous robot navigation.

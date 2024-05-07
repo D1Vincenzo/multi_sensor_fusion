@@ -17,6 +17,9 @@
 \usepackage{enumitem}
 \usepackage[style=numeric,sorting=none]{biblatex}
 \addbibresource{bibliography.bib}
+\setlength{\bibitemsep}{0.0pt} % Adjust this value to change the space between references
+\usepackage{url}
+\urlstyle{same} % this line will make the url style same as the rest of the document
 \usepackage{hyperref}
 \hypersetup{
     colorlinks=true,
@@ -27,7 +30,7 @@
 }
 
 % Adjust the space before and after sections
-\titlespacing\section{0pt}{10pt}{10pt}
+\titlespacing\section{0pt}{10pt}{8pt}
 
 % Adjust the space before and after subsections
 \titlespacing\subsection{0pt}{8pt}{8pt}
@@ -35,14 +38,18 @@
 % Adjust the space before and after subsubsections
 \titlespacing\subsubsection{0pt}{6pt}{6pt}
 
+\titleformat*{\section}{\normalsize\bfseries}
+\titleformat*{\subsection}{\normalsize\bfseries}
+\titleformat*{\subsubsection}{\normalsize\bfseries}
+
 \setlength{\parindent}{0pt}
 
 \geometry{
-  top=1cm,
+  top=1.5cm,
   bottom=1.5cm,
   left=1.75cm,
   right=1.75cm,
-  headsep=0cm
+  headsep=10pt
   % includehead, % Include space for the header
   % includefoot, % Include space for the footer
   % headheight=1pt % Height of the header
@@ -50,20 +57,41 @@
 \definecolor{grey}{gray}{0.5}
 \fancypagestyle{plain}{
 \fancyhead{}
-\chead{\color{grey}\fontsize{8pt}{12pt}\selectfont \textbf{MECH0020\_AY2023-24}}
+\chead{\color{black}\fontsize{8pt}{12pt}\selectfont \textbf{MECH0020\_AY2023-24}}
 \fancyfoot[C]{\color{grey}\fontsize{10pt}{12pt}\selectfont \thepage}
 \renewcommand{\headrulewidth}{0pt}
 }
 
 \pagestyle{plain}
 
-\title{\fontsize{16pt}{19pt}\selectfont\textbf{Enhanced Robotic Navigation Using Multi-Sensor Fusion}}
+\title{\vspace{-18pt}\fontsize{16pt}{19pt}\selectfont\textbf{Enhanced Robotic Navigation Using Multi-Sensor Fusion}}
 \author{\fontsize{14pt}{17pt}\selectfont\textbf{Xinyang Huang 21022763} \\
 \fontsize{12pt}{14pt}\selectfont Mechanical Engineering Department, University College London}
 \date{} % No date to mimic the template
 
-\begin{document}
+\makeatletter
+\def\@maketitle{
+  \newpage
+  \null
+  \vskip 0em%
+  \begin{center}%
+  \let \footnote \thanks
+    {\LARGE \@title \par}%
+    \vskip 1em%  % Adjust this space to suit your needs
+    {\large
+      \lineskip .5em%
+      \begin{tabular}[t]{c}%
+        \@author
+      \end{tabular}\par}%
+    \vskip 1em%
+    {\large \@date}%
+  \end{center}%
+  \par
+  \vskip 1.5em}
+\makeatother
 
+
+\begin{document}
 \maketitle
 
 \subfile{abstract.tex}

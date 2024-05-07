@@ -1,9 +1,9 @@
 \section{THEORY AND CALCULATION}
 \label{sec:theory_and_calculation}
 \subsection{Depth Image to Laser Scan}
-In this section, the object distance information from the depth image is converted into laser scanning information (sensor\_msgs/msg/LaserScan)~\cite{laserscan}, 
+In this section, the object distance information from the depth image is converted into laser scanning information (sensor\_msgs/msg/LaserScan), 
 where the information that is important for sensor fusion is:
-\begin{itemize}[leftmargin=*]
+\begin{itemize}[leftmargin=*, itemsep=-1em, topsep=0em]
     \item \textbf{angle\_increment}: The angle between each measurement, 
     which can be used to determine the exact direction of each distance measurement within the scan. 
     \item \textbf{ranges}: A float32 array representing the distance measurement from the scanner to the nearest object for each angle increment. 
@@ -32,7 +32,7 @@ Therefore, there is no need to worry that the LiDAR data converted from the dept
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{figs/comparison.png}
-    \caption{Comparison of depth and normal image}
+    \caption{Comparison of normal and depth image}
 \end{figure}
 In a depth image, the colour of each pixel point represents the distance of this point 
 in real-world coordinates from the camera's optical centre. 
@@ -87,7 +87,7 @@ the index of each data slot is shown in following Figure~\ref{fig:laser_index}.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\linewidth]{figs/index.png}
+    \includegraphics[width=0.6\linewidth]{figs/index.png}
     \caption{Simplified example of laser data slot index}
     \label{fig:laser_index}
 \end{figure}
@@ -165,11 +165,11 @@ However, since this is a hardware solution to the problem,
 it is difficult to implement on different, already assembled robots. 
 Algorithm-based approaches are still needed to obtain a generic solution to this problem. 
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.5\linewidth]{figs/turtlebot.jpeg}
-    \caption{Typical indoor robot with camera on top}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.5\linewidth]{figs/turtlebot.jpeg}
+%     \caption{Typical indoor robot with camera on top}
+% \end{figure}
 
 The Figure~\ref{fig:tradeoff} shows how to calculate the maximum distance $l$ from a point when the chosen horizontal line is offset from the original centre line by $h$, 
 which will be uniformly called to as the "line of sight". 
