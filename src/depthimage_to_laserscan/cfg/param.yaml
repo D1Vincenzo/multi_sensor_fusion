@@ -1,0 +1,12 @@
+depthimage_to_laserscan:
+  ros__parameters:
+    scan_time: 0.033
+#    range_min: 0.01
+#    range_max: 0.9
+#    scan_height: 110
+
+    range_min: 0.45
+    range_max: 3.0
+    scan_height: 1
+    
+    output_frame: "frame"
