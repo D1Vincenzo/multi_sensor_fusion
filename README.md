@@ -1,5 +1,5 @@
 # Multi-Sensor Fusion for Enhanced Navigation
-<img src="figs/readme_pics/cover_page.png" align="right" width="300" alt="header pic"/>
+<img src="latex/figs/readme_pics/cover_page.png" align="right" width="300" alt="header pic"/>
 Final Year Individual Project Repository by Xinyang Huang
 
 ## Table of Contents
@@ -46,4 +46,4 @@ Outline of potential future extensions and improvements to the project, based on
 - Use multiple cameras to achieve 360 degree detection.
 
 ---
-For more information or inquiries, please contact [Xinyang Huang](mailto:your.email@example.com).
+For more information or inquiries, please contact [Xinyang Huang](xinyang.huang.21@ucl.ac.uk).
