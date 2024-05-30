@@ -1,0 +1,14 @@
+{
+    "python.autoComplete.extraPaths": [
+        "/home/hxy/multi-sensor-fusion/build/laser_merger",
+        "/home/hxy/multi-sensor-fusion/install/laser_merger/lib/python3.10/site-packages",
+        "/opt/ros/humble/lib/python3.10/site-packages",
+        "/opt/ros/humble/local/lib/python3.10/dist-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "/home/hxy/multi-sensor-fusion/build/laser_merger",
+        "/home/hxy/multi-sensor-fusion/install/laser_merger/lib/python3.10/site-packages",
+        "/opt/ros/humble/lib/python3.10/site-packages",
+        "/opt/ros/humble/local/lib/python3.10/dist-packages"
+    ]
+}
