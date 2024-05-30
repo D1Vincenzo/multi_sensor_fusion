@@ -40,14 +40,17 @@ Documentation of testing procedures, results, and how they validate the effectiv
 
 With 2D LiDAR only:
 
-![](latex/figs/after_merge.png)
-
-With the fusion algorithm:
 ![](latex/figs/before_merge.png)
 
-With 2D LiDAR only:
+With the fusion algorithm:
+
+![](latex/figs/after_merge.png)
+
+Barricades world
 
 ![](figs/readme_pics/barricades.png)
+
+With 2D LiDAR only:
 
 ![](figs/readme_pics/barricades_before.png)
 
